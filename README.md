@@ -47,7 +47,8 @@ else {
 
 ````
 
-## Limitations
+## Notes
 
-- This caching implementation does not support deferred saving (`$pool->saveDeferred()` is identical to `$pool->save()`). 
-- Needs tests!
+- This caching implementation does not support deferred saving: `$pool->saveDeferred()` is identical to `$pool->save()` and `$pool->commit()` is always true.
+- The implementation deviates from the PSR-6 standard by allowing the `/` character in the key name. 
+- The Pool class does **not** support extensions to PSR-6 from the PHP-Cache project like tagging, namespaces or hierarchy.

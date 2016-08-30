@@ -4,7 +4,6 @@ namespace modmore\RevolutionCache;
 
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
-use Psr\Cache\InvalidArgumentException;
 
 class Pool implements CacheItemPoolInterface
 {
@@ -39,6 +38,8 @@ class Pool implements CacheItemPoolInterface
      */
     public function getItem($key)
     {
+        $this->_validateKey($key);
+
         $hit = false;
         $value = $this->provider->get($key);
         if ($value !== null) {
@@ -134,6 +135,7 @@ class Pool implements CacheItemPoolInterface
      */
     public function deleteItem($key)
     {
+        $this->_validateKey($key);
         $deleted = $this->provider->delete($key);
         if (!$deleted && $this->hasItem($key)) {
             return false;
@@ -213,5 +215,28 @@ class Pool implements CacheItemPoolInterface
     public function commit()
     {
         return true;
+    }
+
+    /**
+     * Validates a cache key to make sure it does not contain invalid characters.
+     *
+     * NOTE:
+     *
+     * @param $key
+     * @throws InvalidArgumentException
+     */
+    protected function _validateKey($key)
+    {
+        if (!is_string($key)) {
+            throw new InvalidArgumentException(sprintf('Cache key must be a string, "%s" given', is_object($key) ? get_class($key) : gettype($key)));
+        }
+        if ($key === '') {
+            throw new InvalidArgumentException('Cache key cannot be empty');
+        }
+
+        // Note that the PSR-6 spec does not allow / either, and
+        if (isset($key[strcspn($key, '{}()\@:')])) {
+            throw new InvalidArgumentException(sprintf('Cache key "%s" contains reserved characters {}()/\@:', $key));
+        }
     }
 }
