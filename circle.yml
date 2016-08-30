@@ -27,3 +27,5 @@ test:
     - phpunit --log-junit $CIRCLE_TEST_REPORTS/junit/$(phpenv local).xml
     - phpenv local 5.6.5 && php -v
     - phpunit --log-junit $CIRCLE_TEST_REPORTS/junit/$(phpenv local).xml
+    - phpenv local 7.0.4 && php -v
+    - phpunit --log-junit $CIRCLE_TEST_REPORTS/junit/$(phpenv local).xml
