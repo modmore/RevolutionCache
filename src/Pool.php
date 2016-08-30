@@ -232,8 +232,7 @@ class Pool implements CacheItemPoolInterface
             throw new InvalidArgumentException('Cache key cannot be empty');
         }
 
-        // Note that the PSR-6 spec does not allow / either, so this deviates from the standard
-        if (isset($key[strcspn($key, '{}()\@:')])) {
+        if (isset($key[strcspn($key, '{}()\/@:')])) {
             throw new InvalidArgumentException(sprintf('Cache key "%s" contains reserved characters {}()/\@:', $key));
         }
     }
