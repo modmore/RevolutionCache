@@ -45,12 +45,10 @@ class Pool implements CacheItemPoolInterface
             $hit = true;
         }
 
-        if (is_array($value)) {
-            if (array_key_exists('_type', $value) && !empty($value['_type'])) {
-                $value = $this->modx->newObject($value['_type']);
-                $value->fromArray($value['_fields']);
-                $value->_new = $value['_new'];
-            }
+        if (is_array($value) && array_key_exists('_type', $value) && !empty($value['_type'])) {
+            $value = $this->modx->newObject($value['_type']);
+            $value->fromArray($value['_fields']);
+            $value->_new = $value['_new'];
         }
         else {
             $unserialized = @unserialize($value);
