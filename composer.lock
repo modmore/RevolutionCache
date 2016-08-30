@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "41fea16a5ea80f0d8a0bbdb439bb0853",
-    "content-hash": "e1c3462a5c5a7d871f405a72cb6f29d4",
+    "hash": "9173732ae2434f1231c0b07e287d2885",
+    "content-hash": "ffae625f7707b6c43d3ec1c56f723ea2",
     "packages": [
         {
             "name": "psr/cache",
@@ -54,7 +54,63 @@
             "time": "2016-08-06 20:24:11"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "cache/integration-tests",
+            "version": "0.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-cache/integration-tests.git",
+                "reference": "7c697ca229273053b42d799842f1ab2fdf50349a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-cache/integration-tests/zipball/7c697ca229273053b42d799842f1ab2fdf50349a",
+                "reference": "7c697ca229273053b42d799842f1ab2fdf50349a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4|^7",
+                "psr/cache": "~1.0"
+            },
+            "require-dev": {
+                "cache/cache": "dev-master",
+                "phpunit/phpunit": "^4.0|^5.0",
+                "symfony/cache": "^3.1",
+                "tedivm/stash": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cache\\IntegrationTests\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Scherer",
+                    "email": "aequasi@gmail.com",
+                    "homepage": "https://github.com/aequasi"
+                },
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com",
+                    "homepage": "https://github.com/nyholm"
+                }
+            ],
+            "description": "Integration tests for PSR-6 cache implementations",
+            "homepage": "https://github.com/php-cache/integration-tests",
+            "keywords": [
+                "cache",
+                "psr6",
+                "test"
+            ],
+            "time": "2016-08-02 07:04:42"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],

@@ -16,5 +16,8 @@
         "psr-4": {
             "modmore\\RevolutionCache\\" : "src/"
         }
+    },
+    "require-dev": {
+        "cache/integration-tests": "^0.11.0"
     }
 }

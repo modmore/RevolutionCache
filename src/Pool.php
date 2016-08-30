@@ -44,11 +44,21 @@ class Pool implements CacheItemPoolInterface
         if ($value !== null) {
             $hit = true;
         }
-        if (is_array($value) && array_key_exists('_type') && !empty($value['_type'])) {
-            $value = $this->modx->newObject($value['_type']);
-            $value->fromArray($value['_fields']);
-            $value->_new = $value['_new'];
+
+        if (is_array($value)) {
+            if (array_key_exists('_type', $value) && !empty($value['_type'])) {
+                $value = $this->modx->newObject($value['_type']);
+                $value->fromArray($value['_fields']);
+                $value->_new = $value['_new'];
+            }
         }
+        else {
+            $unserialized = @unserialize($value);
+            if ($unserialized !== false || $value === 'b:0;') {
+                $value = $unserialized;
+            }
+        }
+
         return new Item($this->modx, $key, $value, $hit);
     }
 
@@ -126,7 +136,11 @@ class Pool implements CacheItemPoolInterface
      */
     public function deleteItem($key)
     {
-        return $this->provider->delete($key);
+        $deleted = $this->provider->delete($key);
+        if (!$deleted && $this->hasItem($key)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -164,12 +178,16 @@ class Pool implements CacheItemPoolInterface
     public function save(CacheItemInterface $item)
     {
         $value = $item->get();
+
         if ($value instanceof \xPDOObject) {
             $value = [
                 '_type' => $value->_class,
                 '_fields' => $value->toArray('', true),
                 '_new' => $value->_new,
             ];
+        }
+        elseif ($value === null || !is_scalar($value)) {
+            $value = serialize($value);
         }
         return $this->provider->set($item->getKey(), $value, ($item instanceof Item) ? $item->_getExpiration() : null);
     }

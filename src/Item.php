@@ -17,6 +17,7 @@ class Item implements CacheItemInterface
         $this->modx = $modx;
         $this->key = $key;
         $this->value = $value;
+        $this->hit = $hit;
     }
 
     /**
@@ -84,6 +85,7 @@ class Item implements CacheItemInterface
     {
         $this->hit = true;
         $this->value = $value;
+        return $this;
     }
 
     /**
@@ -100,10 +102,13 @@ class Item implements CacheItemInterface
      */
     public function expiresAt($expiration)
     {
+        $this->expiration = null;
         if ($expiration instanceof \DateTimeInterface) {
             $this->expiration = $expiration->getTimestamp() - time();
         }
-        $this->expiration = null;
+        elseif (is_int($expiration)) {
+            $this->expiration = $expiration - time();
+        }
         return $this;
     }
 
