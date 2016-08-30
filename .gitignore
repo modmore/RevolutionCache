@@ -1,4 +1,3 @@
 .idea/
 vendor/
 config.core.php
-phpunit.xml
