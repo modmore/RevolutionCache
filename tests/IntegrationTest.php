@@ -4,11 +4,11 @@ use Cache\IntegrationTests\CachePoolTest;
 class PoolIntegrationTest extends CachePoolTest
 {
     protected $skippedTests = [
-        'testGetItemInvalidKeys' => 'Key validation has been added yet',
-        'testGetItemsInvalidKeys' => 'Key validation has been added yet',
-        'testHasItemInvalidKeys' => 'Key validation has been added yet',
-        'testDeleteItemInvalidKeys' => 'Key validation has been added yet',
-        'testDeleteItemsInvalidKeys' => 'Key validation has been added yet',
+        'testGetItemInvalidKeys' => 'Key validation has not been added yet',
+        'testGetItemsInvalidKeys' => 'Key validation has not been added yet',
+        'testHasItemInvalidKeys' => 'Key validation has not been added yet',
+        'testDeleteItemInvalidKeys' => 'Key validation has not been added yet',
+        'testDeleteItemsInvalidKeys' => 'Key validation has not been added yet',
     ];
 
     protected $instance = 0;
