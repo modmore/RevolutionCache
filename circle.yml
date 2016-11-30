@@ -1,7 +1,7 @@
 # default php version
 machine:
   php:
-    version: 5.5.31
+    version: 5.4.4
 # set up MODX
 checkout:
   post:
