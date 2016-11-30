@@ -63,7 +63,9 @@ The third `$options` property on the constructor can be used to specify xPDOCach
 
 ## Tests
 
-This implementation follows the PSR-6 spec as tested with the [PSR-6 integration tests provided by the PHP-Cache project](http://php-cache.readthedocs.io/en/latest/implementing-cache-pools/integration-tests/). To run these tests:
+This implementation follows the PSR-6 spec as tested with the [PSR-6 integration tests provided by the PHP-Cache project](http://php-cache.readthedocs.io/en/latest/implementing-cache-pools/integration-tests/). 
+
+To run these tests, or to contribute to RevolutionCache:
 
 1. Install MODX
 2. Create a `config.core.php` file in the root of this project, pointing to the MODX core folder. There's an example in `config.core.sample.php`
