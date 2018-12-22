@@ -5,7 +5,8 @@
     "require": {
         "php": ">=5.4.4",
         "psr/cache": "^1.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-pdo": "*"
     },
     "license": "MIT",
     "authors": [
