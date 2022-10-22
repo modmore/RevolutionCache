@@ -2,22 +2,24 @@
 
 namespace modmore\RevolutionCache;
 
+use MODX\Revolution\modX;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
+use xPDO\Cache\xPDOCache;
 
 class Pool implements CacheItemPoolInterface
 {
-    protected $modx;
+    protected \modX|modX $modx;
 
-    /** @var null|\xPDOCache */
+    /** @var null|\xPDOCache|xPDOCache */
     protected $provider;
 
-    public function __construct(\modX $modx, $provider = '', array $options = array())
+    public function __construct(\modX|modX $modx, $provider = '', array $options = array())
     {
         $this->modx = $modx;
 
         $cacheManager = $this->modx->getCacheManager();
-        $this->provider =& $cacheManager->getCacheProvider($provider, $options);
+        $this->provider = $cacheManager->getCacheProvider($provider, $options);
     }
 
     /**
@@ -36,7 +38,7 @@ class Pool implements CacheItemPoolInterface
      * @return CacheItemInterface
      *   The corresponding Cache Item.
      */
-    public function getItem($key)
+    public function getItem(string $key): CacheItemInterface
     {
         $this->_validateKey($key);
 
@@ -67,17 +69,13 @@ class Pool implements CacheItemPoolInterface
      * @param string[] $keys
      *   An indexed array of keys of items to retrieve.
      *
-     * @throws InvalidArgumentException
-     *   If any of the keys in $keys are not a legal value a \Psr\Cache\InvalidArgumentException
-     *   MUST be thrown.
-     *
-     * @return array|\Traversable
+     * @return iterable A traversable collection of Cache Items keyed by the cache keys of
      *   A traversable collection of Cache Items keyed by the cache keys of
      *   each item. A Cache item will be returned for each key, even if that
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
      */
-    public function getItems(array $keys = array())
+    public function getItems(array $keys = array()): iterable
     {
         $items = [];
         foreach ($keys as $key) {
@@ -104,7 +102,7 @@ class Pool implements CacheItemPoolInterface
      * @return bool
      *   True if item exists in the cache, false otherwise.
      */
-    public function hasItem($key)
+    public function hasItem(string $key): bool
     {
         return $this->getItem($key)->isHit();
     }
@@ -115,7 +113,7 @@ class Pool implements CacheItemPoolInterface
      * @return bool
      *   True if the pool was successfully cleared. False if there was an error.
      */
-    public function clear()
+    public function clear(): bool
     {
         return $this->provider->flush();
     }
@@ -133,7 +131,7 @@ class Pool implements CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully removed. False if there was an error.
      */
-    public function deleteItem($key)
+    public function deleteItem(string $key): bool
     {
         $this->_validateKey($key);
         $deleted = $this->provider->delete($key);
@@ -155,7 +153,7 @@ class Pool implements CacheItemPoolInterface
      * @return bool
      *   True if the items were successfully removed. False if there was an error.
      */
-    public function deleteItems(array $keys)
+    public function deleteItems(array $keys): bool
     {
         $success = true;
         foreach ($keys as $key) {
@@ -175,7 +173,7 @@ class Pool implements CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully persisted. False if there was an error.
      */
-    public function save(CacheItemInterface $item)
+    public function save(CacheItemInterface $item): bool
     {
         $value = $item->get();
 
@@ -201,7 +199,7 @@ class Pool implements CacheItemPoolInterface
      * @return bool
      *   False if the item could not be queued or if a commit was attempted and failed. True otherwise.
      */
-    public function saveDeferred(CacheItemInterface $item)
+    public function saveDeferred(CacheItemInterface $item): bool
     {
         return $this->save($item);
     }
@@ -212,7 +210,7 @@ class Pool implements CacheItemPoolInterface
      * @return bool
      *   True if all not-yet-saved items were successfully saved or there were none. False otherwise.
      */
-    public function commit()
+    public function commit(): bool
     {
         return true;
     }
@@ -220,10 +218,9 @@ class Pool implements CacheItemPoolInterface
     /**
      * Validates a cache key to make sure it does not contain invalid characters.
      *
-     * @param $key
-     * @throws InvalidArgumentException
+     * @param mixed $key
      */
-    protected function _validateKey($key)
+    protected function _validateKey(string $key): void
     {
         if (!is_string($key)) {
             throw new InvalidArgumentException(sprintf('Cache key must be a string, "%s" given', is_object($key) ? get_class($key) : gettype($key)));

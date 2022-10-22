@@ -2,17 +2,18 @@
 
 namespace modmore\RevolutionCache;
 
+use MODX\Revolution\modX;
 use Psr\Cache\CacheItemInterface;
 
 class Item implements CacheItemInterface
 {
-    protected $key = '';
-    protected $value;
-    protected $hit = false;
-    protected $expiration;
-    protected $modx;
+    protected string $key = '';
+    protected mixed $value;
+    protected mixed $hit = false;
+    protected ?int $expiration = 0;
+    protected \modX|modX $modx;
 
-    public function __construct(\modX $modx, $key, $value = null, $hit = false)
+    public function __construct(\modX|modX $modx, $key, $value = null, $hit = false)
     {
         $this->modx = $modx;
         $this->key = $key;
@@ -29,7 +30,7 @@ class Item implements CacheItemInterface
      * @return string
      *   The key string for this cache item.
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -46,7 +47,7 @@ class Item implements CacheItemInterface
      * @return mixed
      *   The value corresponding to this cache item's key, or null if not found.
      */
-    public function get()
+    public function get(): mixed
     {
         if ($this->isHit()) {
             return $this->value;
@@ -63,7 +64,7 @@ class Item implements CacheItemInterface
      * @return bool
      *   True if the request resulted in a cache hit. False otherwise.
      */
-    public function isHit()
+    public function isHit(): bool
     {
         return $this->hit;
     }
@@ -81,7 +82,7 @@ class Item implements CacheItemInterface
      * @return static
      *   The invoked object.
      */
-    public function set($value)
+    public function set(mixed $value): static
     {
         $this->hit = true;
         $this->value = $value;
@@ -91,16 +92,18 @@ class Item implements CacheItemInterface
     /**
      * Sets the expiration time for this cache item.
      *
-     * @param \DateTimeInterface|null $expiration
+     * @param int|\DateTimeInterface|null $expiration
      *   The point in time after which the item MUST be considered expired.
      *   If null is passed explicitly, a default value MAY be used. If none is set,
      *   the value should be stored permanently or for as long as the
      *   implementation allows.
      *
+     * Can also be provided a unix time stamp.
+     *
      * @return static
      *   The called object.
      */
-    public function expiresAt($expiration)
+    public function expiresAt(int|\DateTimeInterface|null $expiration): static
     {
         $this->expiration = null;
         if ($expiration instanceof \DateTimeInterface) {
@@ -125,7 +128,7 @@ class Item implements CacheItemInterface
      * @return static
      *   The called object.
      */
-    public function expiresAfter($time)
+    public function expiresAfter(int|\DateInterval|null $time): static
     {
         $this->expiration = null;
         if ($time instanceof \DateInterval) {

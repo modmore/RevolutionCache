@@ -3,8 +3,8 @@
     "description": "A PSR-6 cache implementation to access the MODX Revolution Cache Provider.",
     "type": "library",
     "require": {
-        "php": ">=5.5",
-        "psr/cache": "^1.0",
+        "php": ">=8.0",
+        "psr/cache": "^3.0",
         "ext-json": "*",
         "ext-pdo": "*"
     },
@@ -19,8 +19,5 @@
         "psr-4": {
             "modmore\\RevolutionCache\\" : "src/"
         }
-    },
-    "require-dev": {
-        "cache/integration-tests": "^0.11.0"
     }
 }

@@ -1,28 +1,27 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "966914dfbd65f7ae606177d9325dc026",
-    "content-hash": "a85bff90e06ef23ca4927c9a355212db",
+    "content-hash": "7bc64556e695fcf4cc4597dd6a9f3c7c",
     "packages": [
         {
             "name": "psr/cache",
-            "version": "1.0.1",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/cache.git",
-                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
+                "reference": "aa5030cfa5405eccfdcb1083ce040c2cb8d253bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
-                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
+                "url": "https://api.github.com/repos/php-fig/cache/zipball/aa5030cfa5405eccfdcb1083ce040c2cb8d253bf",
+                "reference": "aa5030cfa5405eccfdcb1083ce040c2cb8d253bf",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=8.0.0"
             },
             "type": "library",
             "extra": {
@@ -42,7 +41,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for caching libraries",
@@ -51,73 +50,23 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06 20:24:11"
+            "support": {
+                "source": "https://github.com/php-fig/cache/tree/3.0.0"
+            },
+            "time": "2021-02-03T23:26:27+00:00"
         }
     ],
-    "packages-dev": [
-        {
-            "name": "cache/integration-tests",
-            "version": "0.11.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-cache/integration-tests.git",
-                "reference": "7c697ca229273053b42d799842f1ab2fdf50349a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-cache/integration-tests/zipball/7c697ca229273053b42d799842f1ab2fdf50349a",
-                "reference": "7c697ca229273053b42d799842f1ab2fdf50349a",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.4|^7",
-                "psr/cache": "~1.0"
-            },
-            "require-dev": {
-                "cache/cache": "dev-master",
-                "phpunit/phpunit": "^4.0|^5.0",
-                "symfony/cache": "^3.1",
-                "tedivm/stash": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Cache\\IntegrationTests\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Aaron Scherer",
-                    "email": "aequasi@gmail.com",
-                    "homepage": "https://github.com/aequasi"
-                },
-                {
-                    "name": "Tobias Nyholm",
-                    "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
-                }
-            ],
-            "description": "Integration tests for PSR-6 cache implementations",
-            "homepage": "https://github.com/php-cache/integration-tests",
-            "keywords": [
-                "cache",
-                "psr6",
-                "test"
-            ],
-            "time": "2016-08-02 07:04:42"
-        }
-    ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.4"
+        "php": ">=8.0",
+        "ext-json": "*",
+        "ext-pdo": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
 }
